@@ -1,22 +1,27 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
-import requests
-import sys
 import os
-import datetime
+import requests
 import shutil
+from sys import argv
+from time import strftime
 
-hours = ('09', '10', '11', '12', '13', '14', '15', '16', '17', '18')
-days = ('6', '7')
-now = datetime.datetime.now()
-hour = now.strftime('%H')
-weekday = str(now.isoweekday())
-date = now.strftime('%d-%m-%Y')
-dir = '/home/user/dir'
+date = strftime('%d-%m-%Y')
+dir = '/home/pi/video'
+works_hours = range(7, 17)
+currently_hour = int(strftime('%H'))
+
+
+def sends(path):
+    url = "https://api.telegram.org/bot247646851:AAH4GQny2X_iMhvbbdYYFRUFc5AslBkEfkc/sendPhoto"
+    files = {'photo': open(path, 'rb')}
+    data = {'chat_id': "2057901"}
+    r = requests.post(url, files=files, data=data)
+    # print(r.status_code, r.reason, r.content)
 
 
 def sensor():
-    fl = open('sensor_status')
+    fl = open('/home/pi/rid.txt')
     motion = fl.read()
     if '1' in motion:
         return True
@@ -24,22 +29,15 @@ def sensor():
 
 def moveFiles(extention):
     files = os.listdir(dir)
-    to_move = filter(lambda x: x.endswith('.{ext}'.format(ext = ext)), files)
-    path = r'{dir}{date}'.format(dir = dir, date = date)
+    to_move = filter(lambda x: x.endswith('.{ext}'.format(ext=ext)), files)
+    path = r'{dir}{date}'.format(dir=dir, date=date)
 
     if not os.path.exists(path):
         os.makedirs(path)
 
     for obj in to_move:
-        shutil.move('{dir}{files}'.format(files = obj, dir = dir),
-                    '{dir}{date}'.format(dir = dir, date = date))
-
-
-def sendImage(path):
-    url = "https://api.telegram.org/bot_token/sendPhoto";
-    files = {'photo': open(path, 'rb')}
-    data = {'chat_id' : 'your_telegram_id'}
-    r = requests.post(url, files=files, data=data)
+        shutil.move('{dir}{files}'.format(files=obj, dir=dir),
+                    '{dir}{date}'.format(dir=dir, date=date))
 
 
 if (hour not in hours or weekday in days) and sensor():
