@@ -7,14 +7,14 @@ from sys import argv
 from time import strftime
 
 date = strftime('%d-%m-%Y')
-dir = 'path'
+dir = '/path_to_dir/'
 works_hours = range(7, 17)
 currently_hour = int(strftime('%H'))
 
 
-def sends(path):
+def sends(path_to_file):
     url = "https://api.telegram.org/bot"BOT_ID"/sendPhoto"
-    files = {'photo': open(path, 'rb')}
+    files = {'photo': open(path_to_file, 'rb')}
     data = {'chat_id': "CHAT_ID"}
     r = requests.post(url, files=files, data=data)
     # print(r.status_code, r.reason, r.content)
@@ -41,7 +41,7 @@ def moveFiles(extention):
 
 
 if (hour not in hours or weekday in days) and sensor():
-    sendImage(sys.argv[1])
+    sends(argv[1])
 
 
 moveFiles('avi')
