@@ -7,21 +7,21 @@ from sys import argv
 from time import strftime
 
 date = strftime('%d-%m-%Y')
-dir = '/home/pi/video'
+dir = 'path'
 works_hours = range(7, 17)
 currently_hour = int(strftime('%H'))
 
 
 def sends(path):
-    url = "https://api.telegram.org/bot247646851:AAH4GQny2X_iMhvbbdYYFRUFc5AslBkEfkc/sendPhoto"
+    url = "https://api.telegram.org/bot"BOT_ID"/sendPhoto"
     files = {'photo': open(path, 'rb')}
-    data = {'chat_id': "2057901"}
+    data = {'chat_id': "CHAT_ID"}
     r = requests.post(url, files=files, data=data)
     # print(r.status_code, r.reason, r.content)
 
 
 def sensor():
-    fl = open('/home/pi/rid.txt')
+    fl = open('path_to_rid')
     motion = fl.read()
     if '1' in motion:
         return True
