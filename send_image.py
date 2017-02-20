@@ -8,8 +8,11 @@ from time import strftime
 
 date = strftime('%d-%m-%Y')
 dir = '/path_to_dir/'
-works_hours = range(7, 17)
-currently_hour = int(strftime('%H'))
+hours = range(7, 17)
+hour = int(strftime('%H'))
+days = ('6', '7')
+now = datetime.now()
+weekday = str(now.isoweekday())
 
 
 def sends(path_to_file):
