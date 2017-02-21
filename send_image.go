@@ -48,12 +48,12 @@ func checks() bool {
 }
 
 func main() {
-	bot, err := tgbotapi.NewBotAPI("247646851:AAH4GQny2X_iMhvbbdYYFRUFc5AslBkEfkc")
+	bot, err := tgbotapi.NewBotAPI("BOT_ID")
 	if err != nil {
 		log.Panic(err)
 	}
 
-	photo := tgbotapi.NewPhotoUpload(2057901, os.Args[1])
+	photo := tgbotapi.NewPhotoUpload(111111, os.Args[1])
 	if checks() {
 		bot.Send(photo)
 	} else {
