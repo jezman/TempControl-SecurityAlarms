@@ -62,9 +62,3 @@ func main() {
 
 	moves()
 }
-
-// def sensor():
-//     fl = open('path_to_rid')
-//     motion = fl.read()
-//     if '1' in motion:
-//         return True
